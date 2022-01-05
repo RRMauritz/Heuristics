@@ -1,7 +1,7 @@
 import random
-
 from math import inf
 
+# Different heuristics that can be used in solving the TSP problem
 
 def NNH(xy, dist):
     """"

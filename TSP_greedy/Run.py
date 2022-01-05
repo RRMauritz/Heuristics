@@ -3,7 +3,7 @@ from math import sqrt, inf
 from numpy import genfromtxt
 from TSP_greedy import NNH, NIH, RIH
 from TSP_IG import IG
-from others import compute_dist, compute_cost, show_route
+from Helper import compute_dist, compute_cost, show_route
 
 # Change the working directory to the directory in which this file resides
 abspath = os.path.abspath(__file__)

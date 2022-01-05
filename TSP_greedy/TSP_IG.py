@@ -1,7 +1,9 @@
 import random
 from math import inf
-from others import compute_cost
+from Helper import compute_cost
 
+
+# Implementation of an iterated greedy algorithm
 
 def IG(xy, dist, L, I):
     """"
