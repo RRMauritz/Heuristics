@@ -51,12 +51,8 @@ def IG(xy, dist, construct: Callable, L, I):
 
 def RIH(dist, vis, unvis):
     """"
-    Random Insertion Heuristic
-    Similar to NIH, but at each step, it randomly (!) selects an unvisited city and inserts it in between two nodes such
-    that the cost increase is minimal.
-    :param dist = the distance matrix for the nodes
-    :param vis = the starting list of the tour, specified by the ordering
-    :param unvis = the remaining cities that have not been visited yet
+    Random Insertion Heuristic for the TSP problem
+    See https://stemlounge.com/animated-algorithms-for-the-traveling-salesman-problem/ for more information
     """
 
     # Special case when vis is empty
@@ -97,6 +93,7 @@ def RIH(dist, vis, unvis):
 def NIH(dist, vis, unvis):
     """"
     Nearest Insertion Heuristic for the TSP problem
+    See https://stemlounge.com/animated-algorithms-for-the-traveling-salesman-problem/ for more information
     """
 
     # INIT
@@ -137,9 +134,10 @@ def NIH(dist, vis, unvis):
     return vis, unvis
 
 
-def NNH(dist, vis, unvis):  # TODO: does not work yet in the IG setting! Goes (?) wrong at min_dist line
+def NNH(dist, vis, unvis):
     """"
     Nearest Neighbourhood Heuristic for the TSP problem
+    See https://stemlounge.com/animated-algorithms-for-the-traveling-salesman-problem/ for more information
     """
 
     if len(vis) == 0:
@@ -157,3 +155,26 @@ def NNH(dist, vis, unvis):  # TODO: does not work yet in the IG setting! Goes (?
         vis.append(c_new)
         unvis.remove(c_new)
     return vis, unvis
+
+
+def LS_simple_swap(dist, sol, k):
+    """"
+    Local search implementation for the TSP that is used in an IG setting
+    This is a very basic procedure:
+    Given the solution, it picks two random cities and swaps them. This is repeated k times.
+    The solution with the lowest cost will be returned
+    (if all costs > original solution, then the original solution is returned)
+    """
+    best_cost = compute_cost(dist, sol)
+    for _ in range(k):
+        sol_intermediary = sol.copy()
+        cc = random.sample(sol_intermediary, 2)
+        a = sol_intermediary.index(cc[0])
+        b = sol_intermediary.index(cc[1])
+        sol_intermediary[a], sol_intermediary[b] = sol_intermediary[b], sol_intermediary[a]
+        current_cost = compute_cost(dist, sol_intermediary)
+        if current_cost < best_cost:
+            best_cost = current_cost
+            sol = sol_intermediary
+
+    return sol

@@ -25,5 +25,5 @@ for city in problem.node_coords:
 
 dist = compute_dist(xy)
 
-vis = IG(xy,dist,NNH,70,200)
+vis = IG(xy, dist, RIH, 60, 100)
 show_route(xy, vis, dist)
